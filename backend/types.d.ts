@@ -5,6 +5,9 @@ export interface ThreadData {
   description: string,
   image: string | null
 }
+export interface ThreadDataWithId extends ThreadData{
+  userId: Types.ObjectId
+}
 export interface CommentData {
   threadId: Types.ObjectId,
   userId: Types.ObjectId,

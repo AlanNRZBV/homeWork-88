@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import Thread from '../models/Thread';
 import auth, { RequestWithUser } from '../middleware/auth';
-import { ThreadData } from '../types';
+import { ThreadData, ThreadDataWithId } from '../types';
 import { imagesUpload } from '../multer';
 import mongoose from 'mongoose';
 
@@ -9,7 +9,7 @@ const threadsRouter = Router();
 
 threadsRouter.get('/', async (req, res, next) => {
   try {
-    const threads = await Thread.find().sort({ datetime: 1 });
+    const threads = await Thread.find().sort({ datetime: 1 }).populate({ path: 'userId', select: 'username -_id' })
 
     const message =
       threads.length === 0
@@ -29,12 +29,12 @@ threadsRouter.post(
   async (req: RequestWithUser, res, next) => {
     const errorMsg = 'An image or description is required.';
     try {
-
       if (!req.file && !req.body.description) {
         return res.send({ error: errorMsg });
       }
 
-      const threadData: ThreadData = {
+      const threadData: ThreadDataWithId = {
+        userId: req.user?.id,
         title: req.body.title,
         description: req.body.description? req.body.description : null,
         image: req.file ? req.file.filename : null,

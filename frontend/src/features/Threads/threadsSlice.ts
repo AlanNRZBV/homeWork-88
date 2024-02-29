@@ -29,7 +29,6 @@ export const threadsSlice = createSlice({
     builder.addCase(fetchThreads.rejected,(state)=>{
       state.isLoading = false
     })
-
   }
 })
 

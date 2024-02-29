@@ -13,8 +13,9 @@ const ThreadsItem: FC<Thread> = ({
   title,
   description,
   datetime,
+  userId
 }) => {
-  const date = moment(datetime).format('MMMM Do YYYY, h:mm:ss a');
+  const date = moment(datetime).format('MMM Do YY, h:mm a');
 
   return (
     <Box
@@ -46,9 +47,14 @@ const ThreadsItem: FC<Thread> = ({
         overflow="hidden"
       >
         <Typography variant="h6">{title}</Typography>
+        <Box display="flex" justifyContent="space-between">
+
         <Typography color="gray" variant="caption">
           {date}
+        </Typography><Typography color="gray" variant="caption">
+          {`by ${userId?.username}`}
         </Typography>
+        </Box>
         <Typography
           component={NavLink}
           to={`/threads/${_id}`}

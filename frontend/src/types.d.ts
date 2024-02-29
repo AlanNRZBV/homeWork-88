@@ -1,9 +1,19 @@
+interface test {
+  username: string
+}
 export interface Thread {
   _id:string,
+  userId: test
   title: string,
   description: string | null,
   image: string | null,
   datetime: string
+}
+
+export interface ThreadMutation {
+  title: string,
+  description: string | null
+  image: File | null;
 }
 
 export interface ThreadsFetchResponse {
