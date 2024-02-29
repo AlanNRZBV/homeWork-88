@@ -27,7 +27,8 @@ const ThreadSchema = new Schema({
   },
   datetime:{
     type: Date,
-    required: true
+    required: true,
+    default:() => new Date()
   }
 })
 

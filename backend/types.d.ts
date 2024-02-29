@@ -7,7 +7,6 @@ export interface UserFields {
 }
 
 interface UserMethods {
-
   checkPassword(password: string): Promise<boolean>;
   generateToken(): void;
 }
@@ -15,10 +14,3 @@ interface UserMethods {
 
 type UserModel = Model<UserFields, unknown, UserMethods>;
 
-interface ThreadFields {
-  userId: Schema.Types.ObjectId;
-  title: string;
-  description: string;
-  image?: string;
-  datetime: string;
-}
