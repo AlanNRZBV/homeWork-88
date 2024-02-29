@@ -3,7 +3,7 @@ import Thread from '../models/Thread';
 import auth, { RequestWithUser } from '../middleware/auth';
 import { ThreadData } from '../types';
 import { imagesUpload } from '../multer';
-import mongoose, { mongo } from 'mongoose';
+import mongoose from 'mongoose';
 
 const threadsRouter = Router();
 

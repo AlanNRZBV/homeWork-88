@@ -1,10 +1,16 @@
-import { Model, Schema } from 'mongoose';
+import { Model, Schema, Types } from 'mongoose';
 
 export interface ThreadData {
   title: string,
   description: string,
   image: string | null
 }
+export interface CommentData {
+  threadId: Types.ObjectId,
+  userId: Types.ObjectId,
+  content: string
+}
+
 
 export interface UserFields {
   username: string;
