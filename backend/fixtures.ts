@@ -58,7 +58,7 @@ const run = async () => {
         image: 'fixtures/saturn.jpg',
       },
     ]);
-    
+
     await Thread.create([
       {
         userId: adminUser?._id,
