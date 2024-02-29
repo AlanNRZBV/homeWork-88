@@ -34,7 +34,7 @@ const ThreadSchema = new Schema({
 
 ThreadSchema.pre('save',  function(){
   if(!this.image && !this.description){
-      throw new Error('You must provide image or description')
+      throw new mongoose.Error('You must provide image or description')
   }
 })
 

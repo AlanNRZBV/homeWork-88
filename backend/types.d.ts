@@ -1,5 +1,11 @@
 import { Model, Schema } from 'mongoose';
 
+export interface ThreadData {
+  title: string,
+  description: string,
+  image: string | null
+}
+
 export interface UserFields {
   username: string;
   password: string;
