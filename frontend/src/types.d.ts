@@ -35,6 +35,11 @@ export interface IComment {
   datetime: string
 }
 
+export interface ICommentMutation {
+  threadId: string
+  content: string
+}
+
 export interface CommentsFetchResponse {
   message: string,
  comments: IComment[]

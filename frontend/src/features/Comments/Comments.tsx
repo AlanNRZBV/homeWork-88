@@ -12,11 +12,11 @@ const Comments = () => {
   const dispatch = useAppDispatch()
   const comments = useAppSelector(commentsState)
   const isLoading = useAppSelector(isCommentsLoading)
-  const threadId = useParams();
-  useEffect(() => {
-    dispatch(fetchComments(threadId.id as string))
-    dispatch(fetchSingleThread(threadId.id as string))
-  }, [dispatch, threadId.id]);
+  // const threadId = useParams();
+  // useEffect(() => {
+  //   dispatch(fetchComments(threadId.id as string))
+  //   dispatch(fetchSingleThread(threadId.id as string))
+  // }, [dispatch, threadId.id]);
   return (
     <Box display="flex" flexDirection="column">
       {isLoading ? (<CircularProgress/>) : (

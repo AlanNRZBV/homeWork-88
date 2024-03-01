@@ -1,19 +1,35 @@
 import Comments from '../../Comments/Comments.tsx';
 import { Box, CircularProgress, Typography } from '@mui/material';
-import { useAppSelector } from '../../../app/hooks.ts';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks.ts';
 import { isSingleThreadLoading, singleThreadState } from '../threadsSlice.ts';
 import { Image } from 'mui-image';
 import { apiURL } from '../../../constants.ts';
 import ForumIcon from '@mui/icons-material/Forum';
 import moment from 'moment/moment';
+import AddCommentForm from '../../Comments/component/AddCommentForm.tsx';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { fetchComments } from '../../Comments/commentsThunks.ts';
+import { fetchSingleThread } from '../threadsThunks.ts';
 
 const ThreadWithComments = () => {
+  const dispatch= useAppDispatch()
   const thread = useAppSelector(singleThreadState);
   const isLoading = useAppSelector(isSingleThreadLoading);
 
+  const threadId = useParams();
+  useEffect(() => {
+    dispatch(fetchComments(threadId.id as string))
+    dispatch(fetchSingleThread(threadId.id as string))
+  }, [dispatch, threadId.id]);
+
+  const submitHandler = async ()=>{
+    dispatch(fetchComments(threadId.id as string))
+    dispatch(fetchSingleThread(threadId.id as string))
+  }
+
   const date = moment(thread.datetime).format('MMM Do YY, h:mm a');
 
-  console.log(thread);
 
   const threadBody = (
     <>
@@ -48,6 +64,7 @@ const ThreadWithComments = () => {
         {isLoading ? <CircularProgress /> : threadBody}
       </Box>
       <Comments />
+      <AddCommentForm submitHandlerFromProps={submitHandler}/>
     </Box>
   );
 };

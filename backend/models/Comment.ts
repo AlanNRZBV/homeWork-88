@@ -22,6 +22,7 @@ const CommentSchema = new Schema({
     validate:{
       validator:async (value: Types.ObjectId)=>{
         const thread = await Thread.findById(value)
+        return Boolean(thread);
       },
       message: 'Thread does not exist!',
     }

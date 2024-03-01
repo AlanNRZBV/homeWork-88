@@ -3,6 +3,7 @@ import { Types } from 'mongoose';
 import Comment from '../models/Comment';
 import auth, { RequestWithUser } from '../middleware/auth';
 import { CommentData } from '../types';
+import Thread from '../models/Thread';
 
 const commentsRouter = Router();
 
@@ -34,18 +35,20 @@ commentsRouter.get('/:id', async (req, res, next) => {
   }
 });
 
-commentsRouter.post('/:id', auth, async (req: RequestWithUser, res, next) => {
+commentsRouter.post('/', auth, async (req: RequestWithUser, res, next) => {
   try {
-    let _id: Types.ObjectId;
-    try {
-      _id = new Types.ObjectId(req.params.id);
-    } catch {
-      return res.status(404).send({ error: 'Wrong ObjectId!' });
-    }
 
     if (req.user) {
+
+      const thread = await Thread.findById(req.body.threadId)
+
+      if(!thread){
+        return res.send('Wrong thread id')
+      }
+
+
       const commentData: CommentData = {
-        threadId: _id,
+        threadId: thread._id,
         userId: req.user._id,
         content: req.body.content,
       };
@@ -57,6 +60,7 @@ commentsRouter.post('/:id', auth, async (req: RequestWithUser, res, next) => {
         comment: commentData.content,
       });
     }
+
   } catch (e) {
     next(e);
   }
