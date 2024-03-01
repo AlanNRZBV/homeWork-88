@@ -9,14 +9,28 @@ const threadsRouter = Router();
 
 threadsRouter.get('/', async (req, res, next) => {
   try {
-    const threads = await Thread.find().sort({ datetime: 1 }).populate({ path: 'userId', select: 'username -_id' })
 
-    const message =
-      threads.length === 0
-        ? 'No threads to load. Create one!'
-        : `${threads.length} threads successfully loaded`;
+    if (Object.keys(req.query).length === 0) {
+      const threads = await Thread.find().sort({ datetime: 1 }).populate({ path: 'userId', select: 'username -_id' })
 
-    res.send({ message: message, threads });
+      const message =
+        threads.length === 0
+          ? 'No threads to load. Create one!'
+          : `${threads.length} threads successfully loaded`;
+
+      return res.send({ message: message, threads });
+    }
+
+    const value = req.query.threadById
+
+
+    const thread = await Thread.findById(value).populate({ path: 'userId', select: 'username -_id' })
+
+    if(!thread){
+       return res.send({ message: 'Something went wrong', thread })
+    }
+
+    return res.send({ message: 'Thread successfully loaded', thread });
   } catch (e) {
     next(e);
   }

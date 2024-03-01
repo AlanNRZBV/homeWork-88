@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const CommentSchema = new Schema({
   userId:{
     type: Schema.Types.ObjectId,
-    ref:'User ',
+    ref:'User',
     validate: {
       validator: async (value: Types.ObjectId) => {
         const user = await User.findById(value);
