@@ -28,7 +28,8 @@ export const submitThread = createAsyncThunk<
     }
   });
 
-  return axiosApi.post('/threads', formData, {
+  const response = await axiosApi.post('/threads', formData, {
     headers: { Authorization: `Bearer ${token}` },
   });
+  return response.data
 });

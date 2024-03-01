@@ -4,6 +4,7 @@ import Threads from "../features/Threads/Threads.tsx";
 import Register from '../features/Users/Register.tsx';
 import Login from '../features/Users/Login.tsx';
 import ThreadWithComments from '../features/Threads/ThreadWithComments.tsx';
+import NotFound from '../components/UI/NotFound/NotFound.tsx';
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
       {
         path:'/threads/:id',
         element:<ThreadWithComments/>
+      },
+      {
+        path:'/*',
+        element:<NotFound/>
       }
 
     ],

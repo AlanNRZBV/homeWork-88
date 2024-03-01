@@ -59,7 +59,7 @@ const Navigation = () => {
 
       >
         <Box sx={style}>
-         <AddThreadForm/>
+         <AddThreadForm closeHandler={handleClose}/>
         </Box>
       </Modal>
     </AppBar>

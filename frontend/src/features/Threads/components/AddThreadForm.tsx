@@ -1,11 +1,17 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import FileInput from '../../../components/UI/FileInput/FileInput.tsx';
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ThreadMutation } from '../../../types';
 import { useAppDispatch } from '../../../app/hooks.ts';
 import { fetchThreads, submitThread } from '../threadsThunks.ts';
 
-const AddThreadForm = () => {
+interface Props{
+
+  closeHandler:()=>void
+}
+
+
+const AddThreadForm:FC<Props> = ({closeHandler}) => {
   const dispatch = useAppDispatch();
 
   const [state, setState] = useState<ThreadMutation>({
@@ -19,6 +25,12 @@ const AddThreadForm = () => {
     try {
       await dispatch(submitThread(state)).unwrap();
       await dispatch(fetchThreads())
+      setState(
+        {image:null,
+        title:'',
+        description:''}
+      )
+      closeHandler()
     } catch (e) {
       console.log('Caught on try - SUBMIT FORM - ', e);
     }
