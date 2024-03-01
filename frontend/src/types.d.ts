@@ -37,7 +37,6 @@ export interface IComment {
 }
 
 export interface ICommentMutation {
-  threadId: string;
   content: string;
 }
 

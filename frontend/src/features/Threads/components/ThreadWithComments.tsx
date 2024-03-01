@@ -1,14 +1,14 @@
+import moment from 'moment/moment';
+import { Image } from 'mui-image';
+import { useEffect } from 'react';
+import { apiURL } from '../../../constants.ts';
 import Comments from '../../Comments/Comments.tsx';
 import { Box, CircularProgress, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks.ts';
 import { isSingleThreadLoading, singleThreadState } from '../threadsSlice.ts';
-import { Image } from 'mui-image';
-import { apiURL } from '../../../constants.ts';
 import ForumIcon from '@mui/icons-material/Forum';
-import moment from 'moment/moment';
 import AddCommentForm from '../../Comments/component/AddCommentForm.tsx';
 import { NavLink, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
 import { fetchComments } from '../../Comments/commentsThunks.ts';
 import { fetchSingleThread } from '../threadsThunks.ts';
 import { selectUser } from '../../Users/usersSlice.ts';
@@ -26,8 +26,8 @@ const ThreadWithComments = () => {
   }, [dispatch, threadId.id]);
 
   const submitHandler = async () => {
-    dispatch(fetchComments(threadId.id as string));
-    dispatch(fetchSingleThread(threadId.id as string));
+    dispatch(fetchComments(thread._id));
+    dispatch(fetchSingleThread(thread._id));
   };
 
   const date = moment(thread.datetime).format('MMM Do YY, h:mm a');
@@ -82,7 +82,7 @@ const ThreadWithComments = () => {
       </Box>
       <Comments />
       {user ? (
-        <AddCommentForm submitHandlerFromProps={submitHandler} />
+        <AddCommentForm submitHandlerFromProps={submitHandler}/>
       ) : (
         <Box display="flex" alignSelf="center">
         <Typography component={NavLink} to="/register">Sign up</Typography>

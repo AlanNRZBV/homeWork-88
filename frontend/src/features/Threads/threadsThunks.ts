@@ -22,6 +22,7 @@ export const fetchSingleThread = createAsyncThunk<
   string
 >('threads/fetchSingle', async (arg) => {
   try {
+
     const response = await axiosApi.get<SingleThreadFetchResponse>(
       `/threads?threadById=${arg}`,
     );

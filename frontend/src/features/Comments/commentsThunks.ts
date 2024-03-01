@@ -24,12 +24,11 @@ export const submitComment = createAsyncThunk<
 >('comments/submit', async (arg, { getState }) => {
   try {
     const token = getState().users.user?.token;
-
+    const threadId = getState().threads.singleThread._id
     const commentData = {
-      threadId: arg.threadId,
+      threadId: threadId,
       content: arg.content,
     };
-
     await axiosApi.post('/comments', commentData, {
       headers: {
         Authorization: `Bearer ${token}`,
