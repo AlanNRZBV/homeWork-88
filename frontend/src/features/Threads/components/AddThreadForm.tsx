@@ -72,6 +72,7 @@ const AddThreadForm:FC<Props> = ({closeHandler}) => {
           onChange={inputChangeHandler}
           name="title"
           required
+          sx={{marginBottom:'16px'}}
         ></TextField>
         <TextField
           type="text"
@@ -80,14 +81,16 @@ const AddThreadForm:FC<Props> = ({closeHandler}) => {
           value={state.description}
           onChange={inputChangeHandler}
           name="description"
+          sx={{marginBottom:'16px'}}
         ></TextField>
         <FileInput
           label="Image"
           name="image"
           onChange={fileInputChangeHandler}
+
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" variant="contained" sx={{marginTop:'16px'}}>Submit</Button>
       </Box>
     </>
   );
