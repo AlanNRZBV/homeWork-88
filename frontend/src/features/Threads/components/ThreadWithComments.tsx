@@ -13,34 +13,40 @@ const ThreadWithComments = () => {
 
   const date = moment(thread.datetime).format('MMM Do YY, h:mm a');
 
-  console.log(thread)
-
-
+  console.log(thread);
 
   const threadBody = (
     <>
-      {thread.image ? (
-        <Image
-          src={`${apiURL}/${thread.image}`}
-          alt="Thread image"
-          fit="cover"
-          width="25%"
-          showLoading={<CircularProgress />}
-          style={{ borderRadius: '4px' }}
-        />
-      ) : (
-        <ForumIcon fontSize="large" sx={{ flexGrow: 1 }} />
-      )}
-      <Typography>{thread.title}</Typography>
-      <Typography>{date}</Typography>
-      <Typography>{thread.userId.username}</Typography>
-      <Typography paragraph={true}>{thread.description}</Typography>
+      <Box flexBasis="50%">
+        {thread.image ? (
+          <Image
+            src={`${apiURL}/${thread.image}`}
+            alt="Thread image"
+            fit="cover"
+            width="50%"
+            showLoading={<CircularProgress />}
+            style={{ borderRadius: '4px' }}
+          />
+        ) : (
+          <ForumIcon fontSize="large" sx={{ flexGrow: 1 }} />
+        )}
+      </Box>
+      <Box flexGrow="1">
+        <Box display="flex" justifyContent="space-between" pb={2} mb={2} sx={{borderBottom:'1px solid grey'}}>
+          <Typography color="grey" fontStyle="italic" mr={2}>{date}</Typography>
+          <Typography sx={{textTransform:'uppercase'}}>{thread.userId.username}</Typography>
+        </Box>
+        <Typography>{thread.title}</Typography>
+        <Typography paragraph={true}>{thread.description}</Typography>
+      </Box>
     </>
   );
 
   return (
     <Box>
-      <Box>{isLoading ? <CircularProgress /> : threadBody}</Box>
+      <Box display="flex" pb={2} mt={2} mb={2} sx={{ borderBottom: '2px solid grey' }}>
+        {isLoading ? <CircularProgress /> : threadBody}
+      </Box>
       <Comments />
     </Box>
   );
