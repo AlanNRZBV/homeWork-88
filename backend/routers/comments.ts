@@ -46,9 +46,8 @@ commentsRouter.post('/', auth, async (req: RequestWithUser, res, next) => {
         return res.send('Wrong thread id')
       }
 
-
       const commentData: CommentData = {
-        threadId: thread._id,
+        threadId: thread._id as Types.ObjectId,
         userId: req.user._id,
         content: req.body.content,
       };

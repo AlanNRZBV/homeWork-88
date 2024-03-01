@@ -1,9 +1,10 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
-import { useAppDispatch } from '../../../app/hooks.ts';
+import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks.ts';
 import React, { FC, useState } from 'react';
 import { ICommentMutation } from '../../../types';
 import { submitComment } from '../commentsThunks.ts';
 import { useParams } from 'react-router-dom';
+import { isCommentSubmitting } from '../commentsSlice.tsx';
 
 interface Props{
   submitHandlerFromProps: ()=>void
@@ -11,6 +12,7 @@ interface Props{
 
 const AddCommentForm:FC<Props> = ({submitHandlerFromProps}) => {
   const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(isCommentSubmitting)
   const threadId = useParams();
 
   const [state, setState] = useState<ICommentMutation>({
@@ -26,6 +28,10 @@ const AddCommentForm:FC<Props> = ({submitHandlerFromProps}) => {
         threadId: threadId.id as string,
       }));
       await dispatch(submitComment(state)).unwrap();
+      setState((prevState)=>({
+        ...prevState,
+        content:''
+      }))
       submitHandlerFromProps()
     } catch (e) {
       console.log('Caught on try - SUBMIT COMMENT FORM - ', e);
@@ -61,7 +67,7 @@ const AddCommentForm:FC<Props> = ({submitHandlerFromProps}) => {
         ></TextField>
 
         <Button type="submit" variant="contained" sx={{ marginTop: '16px' }}>
-          Submit
+          {isLoading ? (<CircularProgress/>) : 'Submit'}
         </Button>
       </Box>
     </>
