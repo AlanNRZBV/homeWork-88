@@ -38,14 +38,18 @@ const Navigation = () => {
           Forum
         </Typography>
         <Box>
-          <Button
-            onClick={handleOpen}
-            color="warning"
-            variant="contained"
-            sx={{ mr: 2 }}
-          >
-            Add thread
-          </Button>
+          {user ? (
+            <Button
+              onClick={handleOpen}
+              color="warning"
+              variant="contained"
+              sx={{ mr: 2 }}
+            >
+              Add thread
+            </Button>
+          ) : (
+            <></>
+          )}
           {user ? <UserMenu user={user} /> : <AnonymousMenu />}
         </Box>
       </Toolbar>
