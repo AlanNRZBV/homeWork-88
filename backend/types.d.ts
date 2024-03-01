@@ -1,19 +1,18 @@
-import { Model, Schema, Types } from 'mongoose';
+import { Model, Types } from 'mongoose';
 
 export interface ThreadData {
-  title: string,
-  description: string,
-  image: string | null
+  title: string;
+  description: string;
+  image: string | null;
 }
-export interface ThreadDataWithId extends ThreadData{
-  userId: Types.ObjectId
+export interface ThreadDataWithId extends ThreadData {
+  userId: Types.ObjectId;
 }
 export interface CommentData {
-  threadId: Types.ObjectId,
-  userId: Types.ObjectId,
-  content: string
+  threadId: Types.ObjectId;
+  userId: Types.ObjectId;
+  content: string;
 }
-
 
 export interface UserFields {
   username: string;
@@ -26,6 +25,4 @@ interface UserMethods {
   generateToken(): void;
 }
 
-
 type UserModel = Model<UserFields, unknown, UserMethods>;
-

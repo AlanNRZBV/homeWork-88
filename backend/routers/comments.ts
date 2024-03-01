@@ -37,13 +37,11 @@ commentsRouter.get('/:id', async (req, res, next) => {
 
 commentsRouter.post('/', auth, async (req: RequestWithUser, res, next) => {
   try {
-
     if (req.user) {
+      const thread = await Thread.findById(req.body.threadId);
 
-      const thread = await Thread.findById(req.body.threadId)
-
-      if(!thread){
-        return res.send('Wrong thread id')
+      if (!thread) {
+        return res.send('Wrong thread id');
       }
 
       const commentData: CommentData = {
@@ -59,7 +57,6 @@ commentsRouter.post('/', auth, async (req: RequestWithUser, res, next) => {
         comment: commentData.content,
       });
     }
-
   } catch (e) {
     next(e);
   }

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import Thread from '../models/Thread';
 import auth, { RequestWithUser } from '../middleware/auth';
-import { ThreadData, ThreadDataWithId } from '../types';
+import { ThreadDataWithId } from '../types';
 import { imagesUpload } from '../multer';
 import mongoose from 'mongoose';
 
@@ -9,9 +9,10 @@ const threadsRouter = Router();
 
 threadsRouter.get('/', async (req, res, next) => {
   try {
-
     if (Object.keys(req.query).length === 0) {
-      const threads = await Thread.find().sort({ datetime: 1 }).populate({ path: 'userId', select: 'username -_id' })
+      const threads = await Thread.find()
+        .sort({ datetime: 1 })
+        .populate({ path: 'userId', select: 'username -_id' });
 
       const message =
         threads.length === 0
@@ -21,13 +22,15 @@ threadsRouter.get('/', async (req, res, next) => {
       return res.send({ message: message, threads });
     }
 
-    const value = req.query.threadById
+    const value = req.query.threadById;
 
+    const thread = await Thread.findById(value).populate({
+      path: 'userId',
+      select: 'username -_id',
+    });
 
-    const thread = await Thread.findById(value).populate({ path: 'userId', select: 'username -_id' })
-
-    if(!thread){
-       return res.send({ message: 'Something went wrong', thread })
+    if (!thread) {
+      return res.send({ message: 'Something went wrong', thread });
     }
 
     return res.send({ message: 'Thread successfully loaded', thread });
@@ -50,7 +53,7 @@ threadsRouter.post(
       const threadData: ThreadDataWithId = {
         userId: req.user?.id,
         title: req.body.title,
-        description: req.body.description? req.body.description : null,
+        description: req.body.description ? req.body.description : null,
         image: req.file ? req.file.filename : null,
       };
 

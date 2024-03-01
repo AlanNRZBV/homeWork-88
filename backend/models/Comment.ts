@@ -5,9 +5,9 @@ import Thread from './Thread';
 const Schema = mongoose.Schema;
 
 const CommentSchema = new Schema({
-  userId:{
+  userId: {
     type: Schema.Types.ObjectId,
-    ref:'User',
+    ref: 'User',
     validate: {
       validator: async (value: Types.ObjectId) => {
         const user = await User.findById(value);
@@ -16,27 +16,27 @@ const CommentSchema = new Schema({
       message: 'User does not exist!',
     },
   },
-  threadId:{
+  threadId: {
     type: Schema.Types.ObjectId,
-    ref:'Thread',
-    validate:{
-      validator:async (value: Types.ObjectId)=>{
-        const thread = await Thread.findById(value)
+    ref: 'Thread',
+    validate: {
+      validator: async (value: Types.ObjectId) => {
+        const thread = await Thread.findById(value);
         return Boolean(thread);
       },
       message: 'Thread does not exist!',
-    }
+    },
   },
   content: {
-    type:String,
-    required: true
-  },
-  datetime:{
-    type:Date,
+    type: String,
     required: true,
-    default:()=> new Date()
-  }
-})
+  },
+  datetime: {
+    type: Date,
+    required: true,
+    default: () => new Date(),
+  },
+});
 
 const Comment = mongoose.model('Comment', CommentSchema);
-export default Comment
+export default Comment;
