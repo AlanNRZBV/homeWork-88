@@ -6,13 +6,13 @@ import { fetchComments, submitComment } from './commentsThunks.ts';
 interface CommentsState {
   comments: IComment[];
   isLoading: boolean;
-  isSingleCommentLoading: boolean
+  isSingleCommentLoading: boolean;
 }
 
 const initialState: CommentsState = {
   comments: [],
   isLoading: false,
-  isSingleCommentLoading: false
+  isSingleCommentLoading: false,
 };
 
 export const commentsSlice = createSlice({
@@ -37,7 +37,6 @@ export const commentsSlice = createSlice({
     });
     builder.addCase(submitComment.fulfilled, (state) => {
       state.isSingleCommentLoading = false;
-
     });
     builder.addCase(fetchComments.rejected, (state) => {
       state.isSingleCommentLoading = false;
@@ -48,4 +47,5 @@ export const commentsSlice = createSlice({
 export const commentsReducer = commentsSlice.reducer;
 export const commentsState = (state: RootState) => state.comments.comments;
 export const isCommentsLoading = (state: RootState) => state.comments.isLoading;
-export const isCommentSubmitting = (state: RootState) => state.comments.isSingleCommentLoading;
+export const isCommentSubmitting = (state: RootState) =>
+  state.comments.isSingleCommentLoading;

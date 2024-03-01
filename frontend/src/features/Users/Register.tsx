@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { RegisterMutation } from '../../types';
-import { Avatar, Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -14,7 +23,7 @@ const Register = () => {
 
   const [state, setState] = useState<RegisterMutation>({
     username: '',
-    password: ''
+    password: '',
   });
 
   const getFieldError = (fieldName: string) => {
@@ -26,10 +35,10 @@ const Register = () => {
   };
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
 
-    setState(prevState => {
-      return {...prevState, [name]: value};
+    setState((prevState) => {
+      return { ...prevState, [name]: value };
     });
   };
 
@@ -39,7 +48,7 @@ const Register = () => {
       await dispatch(register(state)).unwrap();
       navigate('/');
     } catch (e) {
-      console.log('Caught on - REGISTRATION SUBMIT - ', e)
+      console.log('Caught on - REGISTRATION SUBMIT - ', e);
     }
   };
 
@@ -53,13 +62,13 @@ const Register = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-          <LockOutlinedIcon/>
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
+        <Box component="form" onSubmit={submitFormHandler} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -89,7 +98,7 @@ const Register = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{mt: 3, mb: 2}}
+            sx={{ mt: 3, mb: 2 }}
           >
             Sign Up
           </Button>

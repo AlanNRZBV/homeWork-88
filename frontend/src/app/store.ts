@@ -1,9 +1,18 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { persistReducer, FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistStore } from 'redux-persist';
+import {
+  persistReducer,
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+  persistStore,
+} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import {usersReducer} from "../features/Users/usersSlice.ts";
-import {threadsReducer} from "../features/Threads/threadsSlice.ts";
+import { usersReducer } from '../features/Users/usersSlice.ts';
+import { threadsReducer } from '../features/Threads/threadsSlice.ts';
 import { commentsReducer } from '../features/Comments/commentsSlice.tsx';
 
 const usersPersistConfig = {
@@ -20,11 +29,12 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, PAUSE, PERSIST, REHYDRATE, PURGE, REGISTER]
-    }
-  })
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, PAUSE, PERSIST, REHYDRATE, PURGE, REGISTER],
+      },
+    }),
 });
 
 export const persistor = persistStore(store);

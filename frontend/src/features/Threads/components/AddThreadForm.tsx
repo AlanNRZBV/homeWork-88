@@ -5,13 +5,11 @@ import { ThreadMutation } from '../../../types';
 import { useAppDispatch } from '../../../app/hooks.ts';
 import { fetchThreads, submitThread } from '../threadsThunks.ts';
 
-interface Props{
-
-  closeHandler:()=>void
+interface Props {
+  closeHandler: () => void;
 }
 
-
-const AddThreadForm:FC<Props> = ({closeHandler}) => {
+const AddThreadForm: FC<Props> = ({ closeHandler }) => {
   const dispatch = useAppDispatch();
 
   const [state, setState] = useState<ThreadMutation>({
@@ -24,13 +22,9 @@ const AddThreadForm:FC<Props> = ({closeHandler}) => {
     e.preventDefault();
     try {
       await dispatch(submitThread(state)).unwrap();
-      await dispatch(fetchThreads())
-      setState(
-        {image:null,
-        title:'',
-        description:''}
-      )
-      closeHandler()
+      await dispatch(fetchThreads());
+      setState({ image: null, title: '', description: '' });
+      closeHandler();
     } catch (e) {
       console.log('Caught on try - SUBMIT FORM - ', e);
     }
@@ -72,7 +66,7 @@ const AddThreadForm:FC<Props> = ({closeHandler}) => {
           onChange={inputChangeHandler}
           name="title"
           required
-          sx={{marginBottom:'16px'}}
+          sx={{ marginBottom: '16px' }}
         ></TextField>
         <TextField
           type="text"
@@ -81,16 +75,17 @@ const AddThreadForm:FC<Props> = ({closeHandler}) => {
           value={state.description}
           onChange={inputChangeHandler}
           name="description"
-          sx={{marginBottom:'16px'}}
+          sx={{ marginBottom: '16px' }}
         ></TextField>
         <FileInput
           label="Image"
           name="image"
           onChange={fileInputChangeHandler}
-
         />
 
-        <Button type="submit" variant="contained" sx={{marginTop:'16px'}}>Submit</Button>
+        <Button type="submit" variant="contained" sx={{ marginTop: '16px' }}>
+          Submit
+        </Button>
       </Box>
     </>
   );

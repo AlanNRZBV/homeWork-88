@@ -8,7 +8,7 @@ interface Props {
   user: User;
 }
 
-const UserMenu: React.FC<Props> = ({user}) => {
+const UserMenu: React.FC<Props> = ({ user }) => {
   const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -28,7 +28,12 @@ const UserMenu: React.FC<Props> = ({user}) => {
       <Button color="inherit" onClick={handleClick}>
         Hello, {user.username}!
       </Button>
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose} keepMounted>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        keepMounted
+      >
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </>

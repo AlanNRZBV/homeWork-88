@@ -46,20 +46,12 @@ const Navigation = () => {
           >
             Add thread
           </Button>
-          {user ? (
-            <UserMenu user={user} />
-          ) : (
-            <AnonymousMenu />
-          )}
+          {user ? <UserMenu user={user} /> : <AnonymousMenu />}
         </Box>
       </Toolbar>
-      <Modal
-        open={open}
-        onClose={handleClose}
-
-      >
+      <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
-         <AddThreadForm closeHandler={handleClose}/>
+          <AddThreadForm closeHandler={handleClose} />
         </Box>
       </Modal>
     </AppBar>
