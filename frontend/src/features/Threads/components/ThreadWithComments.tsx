@@ -70,7 +70,7 @@ const ThreadWithComments = () => {
   );
 
   return (
-    <Box display="flex" flexDirection="column">
+    <Box display="flex" flexDirection="column" position="relative">
       <Box
         display="flex"
         pb={2}
@@ -82,12 +82,16 @@ const ThreadWithComments = () => {
       </Box>
       <Comments />
       {user ? (
-        <AddCommentForm submitHandlerFromProps={submitHandler}/>
+        <AddCommentForm submitHandlerFromProps={submitHandler} />
       ) : (
         <Box display="flex" alignSelf="center">
-        <Typography component={NavLink} to="/register">Sign up</Typography>
+          <Typography component={NavLink} to="/register">
+            Sign up
+          </Typography>
           <Typography mx={2}> or</Typography>
-        <Typography component={NavLink} to="/login" mr={2}>Sign in</Typography>
+          <Typography component={NavLink} to="/login" mr={2}>
+            Sign in
+          </Typography>
           <Typography> to add comment</Typography>
         </Box>
       )}

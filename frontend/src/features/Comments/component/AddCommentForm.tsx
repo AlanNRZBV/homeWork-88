@@ -39,11 +39,11 @@ const AddCommentForm: FC<Props> = ({ submitHandlerFromProps }) => {
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setState((prevState) => ({
       ...prevState,
-      content:e.target.value
+      content: e.target.value,
     }));
   };
   return (
-    <>
+    <Box position="sticky" bottom={0} width="100%" bgcolor="white">
       <Typography variant="body1" mb={2}>
         Add Comment
       </Typography>
@@ -68,7 +68,7 @@ const AddCommentForm: FC<Props> = ({ submitHandlerFromProps }) => {
           {isLoading ? <CircularProgress /> : 'Submit'}
         </Button>
       </Box>
-    </>
+    </Box>
   );
 };
 

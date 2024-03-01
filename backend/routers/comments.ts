@@ -50,7 +50,6 @@ commentsRouter.post('/', auth, async (req: RequestWithUser, res, next) => {
         content: req.body.content,
       };
 
-
       const comment = new Comment(commentData);
       await comment.save();
       return res.send({

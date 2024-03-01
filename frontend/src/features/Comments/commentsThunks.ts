@@ -24,7 +24,7 @@ export const submitComment = createAsyncThunk<
 >('comments/submit', async (arg, { getState }) => {
   try {
     const token = getState().users.user?.token;
-    const threadId = getState().threads.singleThread._id
+    const threadId = getState().threads.singleThread._id;
     const commentData = {
       threadId: threadId,
       content: arg.content,

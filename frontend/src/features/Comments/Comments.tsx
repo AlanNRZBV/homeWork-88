@@ -7,7 +7,7 @@ const Comments = () => {
   const comments = useAppSelector(commentsState);
   const isLoading = useAppSelector(isCommentsLoading);
   return (
-    <Box display="flex" flexDirection="column">
+    <Box display="flex" flexDirection="column" overflow="auto">
       {isLoading ? (
         <CircularProgress />
       ) : (

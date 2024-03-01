@@ -10,7 +10,6 @@ import { RootState } from '../../app/store.ts';
 export const fetchThreads = createAsyncThunk('threads/fetch', async () => {
   try {
     const response = await axiosApi.get<ThreadsFetchResponse>('/threads');
-    console.log(response.data);
     return response.data;
   } catch (e) {
     console.log('Caught on try - FETCH THREADS - ', e);
@@ -22,7 +21,6 @@ export const fetchSingleThread = createAsyncThunk<
   string
 >('threads/fetchSingle', async (arg) => {
   try {
-
     const response = await axiosApi.get<SingleThreadFetchResponse>(
       `/threads?threadById=${arg}`,
     );
