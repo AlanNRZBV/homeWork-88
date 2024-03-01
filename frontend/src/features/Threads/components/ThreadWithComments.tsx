@@ -7,15 +7,17 @@ import { apiURL } from '../../../constants.ts';
 import ForumIcon from '@mui/icons-material/Forum';
 import moment from 'moment/moment';
 import AddCommentForm from '../../Comments/component/AddCommentForm.tsx';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { fetchComments } from '../../Comments/commentsThunks.ts';
 import { fetchSingleThread } from '../threadsThunks.ts';
+import { selectUser } from '../../Users/usersSlice.ts';
 
 const ThreadWithComments = () => {
   const dispatch = useAppDispatch();
   const thread = useAppSelector(singleThreadState);
   const isLoading = useAppSelector(isSingleThreadLoading);
+  const user = useAppSelector(selectUser);
 
   const threadId = useParams();
   useEffect(() => {
@@ -68,7 +70,7 @@ const ThreadWithComments = () => {
   );
 
   return (
-    <Box>
+    <Box display="flex" flexDirection="column">
       <Box
         display="flex"
         pb={2}
@@ -79,7 +81,16 @@ const ThreadWithComments = () => {
         {isLoading ? <CircularProgress /> : threadBody}
       </Box>
       <Comments />
-      <AddCommentForm submitHandlerFromProps={submitHandler} />
+      {user ? (
+        <AddCommentForm submitHandlerFromProps={submitHandler} />
+      ) : (
+        <Box display="flex" alignSelf="center">
+        <Typography component={NavLink} to="/register">Sign up</Typography>
+          <Typography mx={2}> or</Typography>
+        <Typography component={NavLink} to="/login" mr={2}>Sign in</Typography>
+          <Typography> to add comment</Typography>
+        </Box>
+      )}
     </Box>
   );
 };
