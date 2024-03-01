@@ -3,7 +3,7 @@ import Layout from '../layout/layout.tsx';
 import Threads from "../features/Threads/Threads.tsx";
 import Register from '../features/Users/Register.tsx';
 import Login from '../features/Users/Login.tsx';
-import ThreadWithComments from '../features/Threads/ThreadWithComments.tsx';
+import ThreadWithComments from '../features/Threads/components/ThreadWithComments.tsx';
 import NotFound from '../components/UI/NotFound/NotFound.tsx';
 
 export const router = createBrowserRouter([

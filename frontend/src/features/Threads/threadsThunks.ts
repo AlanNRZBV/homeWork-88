@@ -1,5 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ThreadMutation, ThreadsFetchResponse } from '../../types';
+import {
+  SingleThreadFetchResponse,
+  ThreadMutation,
+  ThreadsFetchResponse,
+} from '../../types';
 import axiosApi from '../../axiosApi.ts';
 import { RootState } from '../../app/store.ts';
 
@@ -12,6 +16,17 @@ export const fetchThreads = createAsyncThunk('threads/fetch', async () => {
     console.log('Caught on try - FETCH THREADS - ', e);
   }
 });
+
+export const fetchSingleThread = createAsyncThunk<SingleThreadFetchResponse | undefined,string>('threads/fetchSingle',
+  async(arg)=>{
+  try{
+    const response = await axiosApi.get<SingleThreadFetchResponse>(`/threads?threadById=${arg}`)
+    
+    return response.data
+  }catch (e) {
+    console.log('Caught on try - FETCH SINGLE THREAD - ', e)
+  }
+  })
 
 export const submitThread = createAsyncThunk<
   null,

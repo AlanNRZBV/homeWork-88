@@ -2,7 +2,7 @@ import { FC } from 'react';
 import moment from 'moment';
 import { apiURL } from '../../../constants.ts';
 import { Thread } from '../../../types';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import ForumIcon from '@mui/icons-material/Forum';
 import { Image } from 'mui-image';
 import { NavLink } from 'react-router-dom';
@@ -55,7 +55,7 @@ const ThreadsItem: FC<Thread> = ({
           {`by ${userId?.username}`}
         </Typography>
         </Box>
-        <Typography
+        {description ? (<Typography
           component={NavLink}
           to={`/threads/${_id}`}
           variant="body2"
@@ -64,7 +64,10 @@ const ThreadsItem: FC<Thread> = ({
           noWrap={true}
         >
           {description}
-        </Typography>
+        </Typography>) : (
+          <Button component={NavLink}
+                  to={`/threads/${_id}`}>View thread</Button>
+        )}
       </Box>
     </Box>
   );

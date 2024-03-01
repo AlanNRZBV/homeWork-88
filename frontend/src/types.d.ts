@@ -1,9 +1,11 @@
-interface test {
+interface Username {
   username: string
+}interface Title {
+  title: string
 }
 export interface Thread {
   _id:string,
-  userId: test
+  userId: username
   title: string,
   description: string | null,
   image: string | null,
@@ -19,6 +21,23 @@ export interface ThreadMutation {
 export interface ThreadsFetchResponse {
   message: string,
   threads: Thread[]
+}
+export interface SingleThreadFetchResponse {
+  message: string,
+  thread: Thread
+}
+
+export interface IComment {
+  _id?: string,
+  userId: Username,
+  threadId?:Title,
+  content: string,
+  datetime: string
+}
+
+export interface CommentsFetchResponse {
+  message: string,
+ comments: IComment[]
 }
 
 export interface RegisterMutation {
